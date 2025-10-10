@@ -1,0 +1,21 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7F5AF0" />
+      <stop offset="100%" stop-color="#2CB67D" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.2" r="0.9">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
+      <stop offset="100%" stop-color="rgba(127,90,240,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" rx="64" fill="#0F0F1A"/>
+  <rect x="16" y="16" width="368" height="368" rx="60" fill="url(#grad)" opacity="0.5"/>
+  <rect x="40" y="40" width="320" height="320" rx="56" fill="#141428"/>
+  <circle cx="200" cy="150" r="82" fill="url(#glow)" opacity="0.35"/>
+  <circle cx="200" cy="150" r="78" fill="#1E1E36"/>
+  <path d="M200 105C182.3 105 168 119.3 168 137C168 154.7 182.3 169 200 169C217.7 169 232 154.7 232 137C232 119.3 217.7 105 200 105Z" fill="#2F2F52"/>
+  <path d="M200 193C158.2 193 124 227.2 124 269V284C124 298.4 135.6 310 150 310H250C264.4 310 276 298.4 276 284V269C276 227.2 241.8 193 200 193Z" fill="#2F2F52"/>
+  <path d="M200 193C158.2 193 124 227.2 124 269V276C124 289.3 134.7 300 148 300H252C265.3 300 276 289.3 276 276V269C276 227.2 241.8 193 200 193Z" fill="#1E1E36"/>
+  <path d="M200 100C178.6 100 161 117.6 161 139V145C161 166.4 178.6 184 200 184C221.4 184 239 166.4 239 145V139C239 117.6 221.4 100 200 100Z" fill="#1E1E36"/>
+</svg>

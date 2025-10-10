@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio | Joaquin Berro</title>
+    <meta
+      name="description"
+      content="Portfolio profesional de Joaquin Berro: desarrollador full-stack y diseñador digital enfocado en experiencias elegantes y de alto rendimiento."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="page-grid">
+      <aside class="sidebar" aria-label="Presentación">
+        <div class="sidebar__branding">
+          <img
+            src="assets/images/profile-placeholder.svg"
+            alt="Retrato de Joaquin Berro"
+            class="sidebar__avatar"
+          />
+          <div>
+            <h1 class="sidebar__name">Joaquin Berro</h1>
+            <p class="sidebar__role">Full-Stack Engineer · Diseñador UI</p>
+          </div>
+        </div>
+        <ul class="sidebar__contact">
+          <li>
+            <span class="sidebar__contact-label">Ubicación</span>
+            <span class="sidebar__contact-value">Montevideo, Uruguay</span>
+          </li>
+          <li>
+            <span class="sidebar__contact-label">Email</span>
+            <a class="sidebar__contact-link" href="mailto:berrojoaco@gmail.com"
+              >berrojoaco@gmail.com</a
+            >
+          </li>
+          <li>
+            <span class="sidebar__contact-label">Disponible</span>
+            <span class="sidebar__status status-dot">Abierto a propuestas</span>
+          </li>
+        </ul>
+        <div class="sidebar__social">
+          <a
+            href="https://www.linkedin.com/in/joaquin-berro-b5a95214b"
+            target="_blank"
+            rel="noreferrer"
+            >LinkedIn</a
+          >
+          <a href="https://github.com" target="_blank" rel="noreferrer"
+            >GitHub</a
+          >
+        </div>
+        <button class="sidebar__cta" data-scroll-to="contact">
+          Agenda una reunión
+        </button>
+      </aside>
+
+      <main class="content">
+        <header class="hero" aria-label="Introducción profesional">
+          <div class="hero__eyebrow">Desarrollo + Diseño</div>
+          <h2 class="hero__headline">
+            Creo experiencias digitales que combinan rendimiento, estética y
+            propósito.
+          </h2>
+          <p class="hero__lede">
+            Más de 7 años liderando proyectos web para startups y marcas globales,
+            mezclando estrategia, código moderno y sensibilidad visual.
+          </p>
+          <div class="hero__cta-group">
+            <button class="btn btn--primary" data-scroll-to="projects">
+              Ver proyectos destacados
+            </button>
+            <button class="btn btn--ghost" data-scroll-to="about">
+              Conocer mi enfoque
+            </button>
+          </div>
+          <div class="hero__metrics">
+            <div class="metric">
+              <span class="metric__value">24</span>
+              <span class="metric__label">Productos lanzados</span>
+            </div>
+            <div class="metric">
+              <span class="metric__value">+130%</span>
+              <span class="metric__label">Promedio de mejora en conversión</span>
+            </div>
+            <div class="metric">
+              <span class="metric__value">9.4/10</span>
+              <span class="metric__label">Satisfacción de clientes</span>
+            </div>
+          </div>
+        </header>
+
+        <section id="about" class="panel panel--about" aria-labelledby="about-title">
+          <div class="panel__header">
+            <span class="panel__eyebrow">Sobre mí</span>
+            <h3 class="panel__title" id="about-title">
+              Mentalidad estratégica, ejecución impecable
+            </h3>
+          </div>
+          <div class="panel__body panel__body--columns">
+            <p>
+              Soy un ingeniero y diseñador digital con una obsesión por los detalles.
+              Combino investigación, prototipado y desarrollo full-stack para crear
+              productos que se sienten sofisticados, accesibles y con un impacto real.
+            </p>
+            <p>
+              Me apasiona liderar equipos multidisciplinarios y construir sistemas
+              escalables con tecnologías como React, Next.js, Node.js y diseño
+              sistemático. Cada entrega está respaldada por datos y pruebas con
+              usuarios.
+            </p>
+          </div>
+          <ul class="panel__highlights">
+            <li class="highlight">
+              <h4 class="highlight__title">Consultor senior en UX</h4>
+              <p class="highlight__description">
+                He guiado a empresas en procesos de discovery, mapeo de journeys
+                críticos y optimización de funnels de adquisición.
+              </p>
+            </li>
+            <li class="highlight">
+              <h4 class="highlight__title">Diseño sistemático</h4>
+              <p class="highlight__description">
+                Implementé design systems living code con Storybook, documentando
+                patrones accesibles y componibles.
+              </p>
+            </li>
+            <li class="highlight">
+              <h4 class="highlight__title">Mentor y speaker</h4>
+              <p class="highlight__description">
+                Mentor en comunidades tech, speaker habitual sobre estrategia UX y
+                arquitectura front-end.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          id="experience"
+          class="panel panel--experience"
+          aria-labelledby="experience-title"
+        >
+          <div class="panel__header">
+            <span class="panel__eyebrow">Experiencia</span>
+            <h3 class="panel__title" id="experience-title">
+              Trayectoria profesional seleccionada
+            </h3>
+          </div>
+          <ol class="timeline">
+            <li class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <span class="timeline__period">2023 — Actualidad</span>
+                <h4>Lead Product Engineer · Aurora Labs</h4>
+                <p>
+                  Lidero la arquitectura de una plataforma SaaS con microfrontends,
+                  elevando la performance en 38% e introduciendo flujos accesibles por
+                  defecto.
+                </p>
+                <div class="timeline__tags">
+                  <span>Next.js</span>
+                  <span>Design Systems</span>
+                  <span>OKR Leadership</span>
+                </div>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <span class="timeline__period">2020 — 2023</span>
+                <h4>Senior UX Engineer · Volt Banking</h4>
+                <p>
+                  Integré analítica avanzada y flujos de onboarding, logrando reducir
+                  el abandono en un 54% y entregando experiencias personalizadas.
+                </p>
+                <div class="timeline__tags">
+                  <span>React</span>
+                  <span>Node.js</span>
+                  <span>Product Discovery</span>
+                </div>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <div class="timeline__dot"></div>
+              <div class="timeline__content">
+                <span class="timeline__period">2017 — 2020</span>
+                <h4>UX/UI Designer · Freelance</h4>
+                <p>
+                  Desarrollé identidades visuales y sitios e-commerce end-to-end,
+                  integrando diseño de interacción y optimización SEO.
+                </p>
+                <div class="timeline__tags">
+                  <span>Figma</span>
+                  <span>Shopify</span>
+                  <span>SEO Técnico</span>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section
+          id="skills"
+          class="panel panel--skills"
+          aria-labelledby="skills-title"
+        >
+          <div class="panel__header">
+            <span class="panel__eyebrow">Competencias</span>
+            <h3 class="panel__title" id="skills-title">Especialidades clave</h3>
+          </div>
+          <div class="skills-grid">
+            <article class="skill-card">
+              <h4>Arquitectura Front-End</h4>
+              <p>Atomic design, Storybook, SSR, edge rendering y performance budgets.</p>
+              <ul>
+                <li>Next.js / Remix</li>
+                <li>TypeScript</li>
+                <li>Testing Library</li>
+              </ul>
+            </article>
+            <article class="skill-card">
+              <h4>Producto & Discovery</h4>
+              <p>
+                Investigación con usuarios, definición de OKRs, prototipado de alta
+                fidelidad y experimentación continua.
+              </p>
+              <ul>
+                <li>Design Sprints</li>
+                <li>Analytics & Heatmaps</li>
+                <li>A/B Testing</li>
+              </ul>
+            </article>
+            <article class="skill-card">
+              <h4>Full-Stack Engineering</h4>
+              <p>
+                APIs escalables, autenticación, arquitecturas serverless y pipelines
+                DevOps.
+              </p>
+              <ul>
+                <li>Node.js / Deno</li>
+                <li>GraphQL / REST</li>
+                <li>CI/CD</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section
+          id="projects"
+          class="panel panel--projects"
+          aria-labelledby="projects-title"
+        >
+          <div class="panel__header">
+            <span class="panel__eyebrow">Selección</span>
+            <h3 class="panel__title" id="projects-title">Proyectos destacados</h3>
+            <a class="panel__link" href="#" aria-label="Ver todos los proyectos"
+              >Ver todos →</a
+            >
+          </div>
+          <div class="projects-grid">
+            <article class="project-card">
+              <div class="project-card__image project-card__image--placeholder"></div>
+              <div class="project-card__content">
+                <span class="project-card__category">Fintech</span>
+                <h4 class="project-card__title">Volt Banking Experience</h4>
+                <p>
+                  Rediseño integral de la app bancaria, integrando personalización
+                  basada en datos y accesibilidad AA.
+                </p>
+                <ul class="project-card__tags">
+                  <li>React Native</li>
+                  <li>Design Ops</li>
+                  <li>Customer Analytics</li>
+                </ul>
+              </div>
+            </article>
+            <article class="project-card">
+              <div class="project-card__image project-card__image--placeholder"></div>
+              <div class="project-card__content">
+                <span class="project-card__category">E-commerce</span>
+                <h4 class="project-card__title">Lumen Living</h4>
+                <p>
+                  Plataforma headless con experiencias 3D y checkout optimizado,
+                  aumentando 2.4x la conversión.
+                </p>
+                <ul class="project-card__tags">
+                  <li>Next.js</li>
+                  <li>Stripe</li>
+                  <li>Contentful</li>
+                </ul>
+              </div>
+            </article>
+            <article class="project-card">
+              <div class="project-card__image project-card__image--placeholder"></div>
+              <div class="project-card__content">
+                <span class="project-card__category">SaaS</span>
+                <h4 class="project-card__title">Aurora Insights</h4>
+                <p>
+                  Dashboard de métricas para equipos de growth con IA integrada y
+                  visualizaciones custom.
+                </p>
+                <ul class="project-card__tags">
+                  <li>Next.js</li>
+                  <li>GraphQL</li>
+                  <li>Data Viz</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section
+          id="testimonials"
+          class="panel panel--testimonials"
+          aria-labelledby="testimonials-title"
+        >
+          <div class="panel__header">
+            <span class="panel__eyebrow">Feedback</span>
+            <h3 class="panel__title" id="testimonials-title">Lo que dicen clientes</h3>
+          </div>
+          <div class="carousel" data-carousel>
+            <button class="carousel__control carousel__control--prev" type="button">
+              <span class="visually-hidden">Testimonio anterior</span>
+            </button>
+            <ul class="carousel__track">
+              <li class="carousel__slide is-active">
+                <blockquote>
+                  “Joaquin elevó nuestro producto a otro nivel. Su mezcla de
+                  empatía, data y estética es difícil de encontrar.”
+                </blockquote>
+                <cite>Laura Méndez · VP Product, Volt</cite>
+              </li>
+              <li class="carousel__slide">
+                <blockquote>
+                  “Nos ayudó a construir un design system robusto y escalable que
+                  aceleró nuestros ciclos de entrega.”
+                </blockquote>
+                <cite>Diego Sánchez · CTO, Aurora Labs</cite>
+              </li>
+              <li class="carousel__slide">
+                <blockquote>
+                  “Su acercamiento estratégico logró que nuestro e-commerce pasara
+                  a ser referencia en la región.”
+                </blockquote>
+                <cite>María Rivas · CEO, Lumen Living</cite>
+              </li>
+            </ul>
+            <button class="carousel__control carousel__control--next" type="button">
+              <span class="visually-hidden">Siguiente testimonio</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="insights" class="panel panel--insights" aria-labelledby="insights-title">
+          <div class="panel__header">
+            <span class="panel__eyebrow">Ideas</span>
+            <h3 class="panel__title" id="insights-title">Últimas publicaciones</h3>
+            <a class="panel__link" href="#" aria-label="Ver todos los artículos">Blog →</a>
+          </div>
+          <div class="insights-grid">
+            <article class="insight-card">
+              <span class="insight-card__date">Agosto 2025</span>
+              <h4 class="insight-card__title">
+                Sistemas de diseño que escalan en organizaciones híbridas
+              </h4>
+              <p>
+                Cómo introducir gobernanza y métricas claras para asegurar consistencia en
+                equipos distribuidos.
+              </p>
+              <a class="insight-card__link" href="#">Leer artículo</a>
+            </article>
+            <article class="insight-card">
+              <span class="insight-card__date">Julio 2025</span>
+              <h4 class="insight-card__title">Framework táctico para discovery continuo</h4>
+              <p>
+                Herramientas y rituales para alinear roadmaps con insights reales de usuarios.
+              </p>
+              <a class="insight-card__link" href="#">Leer artículo</a>
+            </article>
+            <article class="insight-card">
+              <span class="insight-card__date">Mayo 2025</span>
+              <h4 class="insight-card__title">IA generativa aplicada a la ideación de producto</h4>
+              <p>
+                Guía práctica para equilibrar velocidad de experimentación con claridad de marca.
+              </p>
+              <a class="insight-card__link" href="#">Leer artículo</a>
+            </article>
+          </div>
+        </section>
+
+        <section
+          id="contact"
+          class="panel panel--contact"
+          aria-labelledby="contact-title"
+        >
+          <div class="panel__header">
+            <span class="panel__eyebrow">Contacto</span>
+            <h3 class="panel__title" id="contact-title">
+              ¿Hablamos sobre tu próximo proyecto?
+            </h3>
+          </div>
+          <form class="contact-form" action="#" method="post">
+            <div class="contact-form__field">
+              <label for="name">Nombre</label>
+              <input id="name" name="name" type="text" placeholder="Tu nombre" required />
+            </div>
+            <div class="contact-form__field">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="tu@email.com"
+                required
+              />
+            </div>
+            <div class="contact-form__field">
+              <label for="company">Empresa / Proyecto</label>
+              <input
+                id="company"
+                name="company"
+                type="text"
+                placeholder="Nombre de la empresa o iniciativa"
+              />
+            </div>
+            <div class="contact-form__field">
+              <label for="budget">Rango estimado de inversión</label>
+              <select id="budget" name="budget">
+                <option value="">Seleccionar</option>
+                <option value="5k">USD 5k - 10k</option>
+                <option value="10k">USD 10k - 30k</option>
+                <option value="30k">USD 30k+</option>
+              </select>
+            </div>
+            <div class="contact-form__field contact-form__field--full">
+              <label for="message">¿Qué necesitas crear?</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Cuéntame sobre objetivos, plazos y métricas."
+                required
+              ></textarea>
+            </div>
+            <button class="btn btn--primary contact-form__submit" type="submit">
+              Enviar propuesta
+            </button>
+          </form>
+        </section>
+
+        <footer class="footer">
+          <p>
+            © <span data-year></span> Joaquin Berro. Diseñado y desarrollado con
+            intención en Montevideo.
+          </p>
+          <a href="mailto:hola@joaquin.dev">hola@joaquin.dev</a>
+        </footer>
+      </main>
+    </div>
+
+    <div class="floating-nav" data-floating-nav>
+      <nav aria-label="Secciones principales">
+        <button data-scroll-to="about">Sobre mí</button>
+        <button data-scroll-to="experience">Experiencia</button>
+        <button data-scroll-to="projects">Proyectos</button>
+        <button data-scroll-to="insights">Ideas</button>
+        <button data-scroll-to="contact">Contacto</button>
+      </nav>
+    </div>
+
+    <script src="scripts/main.js" defer></script>
+  </body>
+</html>
