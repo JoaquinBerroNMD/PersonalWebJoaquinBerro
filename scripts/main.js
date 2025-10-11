@@ -198,6 +198,34 @@ function initContactFormEmail() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    const trimFieldValues = () => {
+      const fields = form.querySelectorAll("input, textarea");
+      fields.forEach((field) => {
+        const isTextInput =
+          field.tagName === "TEXTAREA" ||
+          ["text", "email", "search", "tel", "url", "password", "hidden"].includes(
+            field.type
+          );
+
+        if (isTextInput && typeof field.value === "string") {
+          field.value = field.value.trim();
+        }
+      });
+    };
+
+    trimFieldValues();
+
+    const isValid =
+      typeof form.reportValidity === "function"
+        ? form.reportValidity()
+        : form.checkValidity();
+
+    if (!isValid) {
+      setStatus("Completa todos los campos requeridos.", "error");
+      resetStatusLater();
+      return;
+    }
+
     if (submitButton) {
       submitButton.disabled = true;
       submitButton.dataset.loading = "true";

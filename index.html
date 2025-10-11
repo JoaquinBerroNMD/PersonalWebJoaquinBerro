@@ -412,10 +412,15 @@
             action="#"
             method="post"
             data-emailjs-service="service_dskmwot"
-            data-emailjs-template="template_g5sb8ke"
+            data-emailjs-template="template_hakn1ge"
             data-emailjs-public-key="UdfO-8kQlTVoS8y33"
             novalidate
           >
+            <input
+              type="hidden"
+              name="title"
+              value="Nuevo contacto desde el portfolio"
+            />
             <div class="contact-form__field">
               <label for="name">Nombre</label>
               <input id="name" name="name" type="text" placeholder="Tu nombre" required />
@@ -437,12 +442,13 @@
                 name="company"
                 type="text"
                 placeholder="Nombre de la empresa o iniciativa"
+                required
               />
             </div>
             <div class="contact-form__field">
               <label for="budget">Rango estimado de inversión</label>
-              <select id="budget" name="budget">
-                <option value="">Seleccionar</option>
+              <select id="budget" name="budget" required>
+                <option value="" disabled selected hidden>Seleccionar</option>
                 <option value="1k">USD 1k - 5k</option>
                 <option value="5k">USD 5k - 10k</option>
                 <option value="10k">USD 10k - 30k</option>
@@ -493,3 +499,6 @@
     <script src="scripts/main.js" defer></script>
   </body>
 </html>
+
+
+
