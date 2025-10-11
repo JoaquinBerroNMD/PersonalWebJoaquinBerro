@@ -6,6 +6,9 @@ const SELECTORS = {
   contactForm: "#contact-form",
   formStatus: "[data-form-status]",
   revealTargets: "[data-reveal]",
+  aiToolsContainer: "[data-ai-tools]",
+  aiToolSelector: "[data-ai-tool-selector]",
+  aiToolPanel: "[data-ai-tool]",
   promptOptimizerForm: "[data-prompt-optimizer-form]",
   promptOriginal: "[data-prompt-original]",
   promptGoal: "[data-prompt-goal]",
@@ -21,12 +24,36 @@ const SELECTORS = {
   promptCopyButton: "[data-prompt-copy]",
   promptCopyFeedback: "[data-prompt-copy-feedback]",
   promptFeedback: "[data-prompt-feedback]",
+  summarizerForm: "[data-summarizer-form]",
+  summarizerInput: "[data-summarizer-input]",
+  summarizerFile: "[data-summarizer-file]",
+  summarizerLength: "[data-summarizer-length]",
+  summarizerTone: "[data-summarizer-tone]",
+  summarizerFeedback: "[data-summarizer-feedback]",
+  summarizerResults: "[data-summarizer-results]",
+  summarizerOutput: "[data-summarizer-output]",
+  summarizerKeyPoints: "[data-summarizer-keypoints]",
+  summarizerKeywords: "[data-summarizer-keywords]",
+  summarizerSuggestions: "[data-summarizer-suggestions]",
+  summarizerSource: "[data-summarizer-source]",
+  summarizerWordCount: "[data-summarizer-word-count]",
+  summarizerReadingTime: "[data-summarizer-reading-time]",
 };
 
 document.documentElement.classList.add("js");
 
 const SCROLL_OFFSET = 80;
 const EMAILJS_STATUS_RESET_DELAY = 7000;
+const SUMMARIZER_LENGTH_MAP = {
+  short: 3,
+  medium: 5,
+  long: 8,
+};
+
+if (window.pdfjsLib?.GlobalWorkerOptions) {
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js";
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   setCurrentYear();
@@ -35,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initTestimonialsCarousel();
   initScrollReveal();
   initContactFormEmail();
-  initPromptOptimizer();
+  initAITools();
 });
 
 function setCurrentYear() {
@@ -325,6 +352,12 @@ function initContactFormEmail() {
         }
       });
   });
+}
+
+function initAITools() {
+  initToolSwitcher();
+  initPromptOptimizer();
+  initTextSummarizer();
 }
 
 const PROMPT_COMPONENTS = [
@@ -764,4 +797,455 @@ function ensureTrailingPeriod(text) {
 function capitalizeFirst(text) {
   if (!text) return "";
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function initToolSwitcher() {
+  const container = document.querySelector(SELECTORS.aiToolsContainer);
+  if (!container) return;
+
+  const selector = container.querySelector(SELECTORS.aiToolSelector);
+  const panels = Array.from(container.querySelectorAll(SELECTORS.aiToolPanel));
+  if (!panels.length) return;
+
+  const setActivePanel = (tool) => {
+    panels.forEach((panel) => {
+      const isActive = panel.dataset.aiTool === tool;
+      panel.classList.toggle("is-active", isActive);
+      panel.hidden = !isActive;
+    });
+  };
+
+  if (selector) {
+    if (!selector.value && panels[0]) {
+      selector.value = panels[0].dataset.aiTool || "";
+    }
+    setActivePanel(selector.value || panels[0].dataset.aiTool);
+    selector.addEventListener("change", (event) => {
+      setActivePanel(event.target.value);
+    });
+  } else if (panels[0]) {
+    setActivePanel(panels[0].dataset.aiTool);
+  }
+}
+
+function initTextSummarizer() {
+  const form = document.querySelector(SELECTORS.summarizerForm);
+  const results = document.querySelector(SELECTORS.summarizerResults);
+  if (!form || !results) return;
+
+  const fields = {
+    input: form.querySelector(SELECTORS.summarizerInput),
+    file: form.querySelector(SELECTORS.summarizerFile),
+    length: form.querySelector(SELECTORS.summarizerLength),
+    tone: form.querySelector(SELECTORS.summarizerTone),
+  };
+
+  const summaryEl = results.querySelector(SELECTORS.summarizerOutput);
+  const keypointsEl = results.querySelector(SELECTORS.summarizerKeyPoints);
+  const keywordsEl = results.querySelector(SELECTORS.summarizerKeywords);
+  const suggestionsEl = results.querySelector(SELECTORS.summarizerSuggestions);
+  const sourceEl = results.querySelector(SELECTORS.summarizerSource);
+  const wordCountEl = results.querySelector(SELECTORS.summarizerWordCount);
+  const readingTimeEl = results.querySelector(SELECTORS.summarizerReadingTime);
+  const feedbackEl = form.querySelector(SELECTORS.summarizerFeedback);
+
+  const submitButton = form.querySelector("button[type='submit']");
+
+  const setFeedback = (message, state) => {
+    if (!feedbackEl) return;
+    if (!message) {
+      feedbackEl.textContent = "";
+      delete feedbackEl.dataset.state;
+      return;
+    }
+    feedbackEl.textContent = message;
+    feedbackEl.dataset.state = state || "info";
+  };
+
+  const setLoading = (isLoading) => {
+    if (submitButton) {
+      submitButton.disabled = isLoading;
+      if (isLoading) {
+        submitButton.dataset.loading = "true";
+      } else {
+        delete submitButton.dataset.loading;
+      }
+    }
+    form.classList.toggle("is-loading", Boolean(isLoading));
+  };
+
+  fields.file?.addEventListener("change", () => {
+    setFeedback("", "info");
+    const file = fields.file?.files?.[0];
+    if (file) {
+      setFeedback(`Archivo seleccionado: ${file.name}`, "info");
+    }
+  });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    setFeedback("", "info");
+    results.hidden = true;
+
+    let rawText = fields.input?.value.trim() || "";
+    const file = fields.file?.files?.[0];
+
+    if (!rawText && !file) {
+      setFeedback(
+        "Añade texto o adjunta un PDF para poder resumirlo.",
+        "error"
+      );
+      return;
+    }
+
+    if (file && file.size > 10 * 1024 * 1024) {
+      setFeedback("El archivo supera el límite de 10 MB.", "error");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      let metadata = {
+        source: rawText ? "Texto pegado" : "PDF adjunto",
+      };
+
+      if (!rawText && file) {
+        if (!window.pdfjsLib) {
+          throw new Error(
+            "No fue posible cargar el lector de PDF en este navegador."
+          );
+        }
+        const pdfData = await extractTextFromPDF(file);
+        rawText = pdfData.text;
+        metadata = {
+          ...metadata,
+          fileName: file.name,
+          pageCount: pdfData.pageCount,
+        };
+      }
+
+      if (!rawText) {
+        throw new Error(
+          "No se encontró contenido legible en la fuente proporcionada."
+        );
+      }
+
+      const normalizedText = normalizeWhitespace(rawText);
+      const wordCount = normalizedText.split(/\s+/).filter(Boolean).length;
+      const length = fields.length?.value || "medium";
+      const tone = fields.tone?.value || "analytical";
+
+      const summaryData = summarizeText(normalizedText, { length, tone });
+      const suggestions = buildSummarizerSuggestions(
+        summaryData,
+        tone,
+        metadata
+      );
+
+      if (summaryEl) {
+        summaryEl.textContent = summaryData.summary;
+      }
+
+      if (keypointsEl) {
+        renderList(keypointsEl, summaryData.highlights.slice(0, 6));
+        toggleSection(keypointsEl.parentElement, summaryData.highlights.length);
+      }
+
+      if (keywordsEl) {
+        renderList(keywordsEl, summaryData.keywords);
+        toggleSection(keywordsEl.parentElement, summaryData.keywords.length);
+      }
+
+      if (suggestionsEl) {
+        renderList(suggestionsEl, suggestions);
+        toggleSection(suggestionsEl.parentElement, suggestions.length);
+      }
+
+      if (sourceEl) {
+        const label = metadata.fileName
+          ? `PDF: ${metadata.fileName}${
+              metadata.pageCount ? ` (${metadata.pageCount} pág.)` : ""
+            }`
+          : metadata.source;
+        sourceEl.textContent = label;
+      }
+
+      if (wordCountEl) {
+        wordCountEl.textContent = `${new Intl.NumberFormat("es-UY").format(
+          wordCount
+        )} palabras`;
+      }
+
+      if (readingTimeEl) {
+        const minutes = Math.max(1, Math.round(wordCount / 220));
+        readingTimeEl.textContent = `${minutes} min`;
+      }
+
+      results.hidden = false;
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (error) {
+      console.error(error);
+      setFeedback(
+        error instanceof Error
+          ? error.message
+          : "Ocurrió un error al generar el resumen.",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
+  });
+}
+
+async function extractTextFromPDF(file) {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  let fullText = "";
+
+  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+    const page = await pdf.getPage(pageNumber);
+    const content = await page.getTextContent();
+    const pageText = content.items
+      .map((item) => ("str" in item ? item.str : ""))
+      .join(" ");
+    fullText += `${pageText}\n`;
+  }
+
+  return {
+    text: normalizeWhitespace(fullText),
+    pageCount: pdf.numPages,
+  };
+}
+
+function summarizeText(text, options = {}) {
+  const sanitized = normalizeWhitespace(text);
+  const sentences = sanitized
+    .split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ0-9])/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+
+  const maxSentences =
+    SUMMARIZER_LENGTH_MAP[options.length] || SUMMARIZER_LENGTH_MAP.medium;
+
+  if (sentences.length <= maxSentences) {
+    return {
+      summary: sentences.join(" "),
+      highlights: sentences.slice(0, 5),
+      keywords: extractKeywords(sanitized),
+    };
+  }
+
+  const wordFrequencies = computeWordFrequencies(sanitized);
+
+  const scoredSentences = sentences.map((sentence, index) => {
+    const terms = sentence
+      .toLowerCase()
+      .match(/[\p{L}\d]{3,}/gu);
+    const score = (terms || []).reduce((total, term) => {
+      return total + (wordFrequencies.get(term) || 0);
+    }, 0);
+    return {
+      index,
+      sentence,
+      score: score / Math.max(terms?.length || 1, 1),
+    };
+  });
+
+  const selected = scoredSentences
+    .sort((a, b) => b.score - a.score)
+    .slice(0, maxSentences)
+    .sort((a, b) => a.index - b.index)
+    .map((item) => item.sentence);
+
+  const highlights = buildHighlights(selected, options.tone);
+
+  return {
+    summary: selected.join(" "),
+    highlights,
+    keywords: extractKeywords(sanitized),
+  };
+}
+
+function computeWordFrequencies(text) {
+  const frequencies = new Map();
+  const stopwords = getStopwords();
+  const words = text.toLowerCase().match(/[\p{L}\d]{3,}/gu) || [];
+
+  words.forEach((word) => {
+    if (stopwords.has(word)) return;
+    const current = frequencies.get(word) || 0;
+    frequencies.set(word, current + 1);
+  });
+
+  return frequencies;
+}
+
+function buildHighlights(sentences, tone = "analytical") {
+  if (!sentences.length) return [];
+
+  if (tone === "bullet") {
+    return sentences.map((sentence) => simplifySentence(sentence));
+  }
+
+  if (tone === "executive") {
+    return sentences
+      .map((sentence) => sentence.replace(/^[\-•\d\.\s]+/, ""))
+      .map((sentence) => sentence.replace(/(\.|;)+$/, ""))
+      .slice(0, 4);
+  }
+
+  return sentences.slice(0, 5);
+}
+
+function buildSummarizerSuggestions(summaryData, tone, metadata) {
+  const suggestions = [];
+  const primaryKeyword = summaryData.keywords[0];
+
+  if (primaryKeyword) {
+    suggestions.push(
+      `Profundiza en ${primaryKeyword} con ejemplos o datos recientes.`
+    );
+  }
+
+  if (tone === "executive") {
+    suggestions.push(
+      "Comparte este resumen con el equipo directivo y asigna responsables por cada punto clave."
+    );
+  } else if (tone === "bullet") {
+    suggestions.push("Convierte cada punto clave en tareas accionables.");
+  } else {
+    suggestions.push(
+      "Identifica riesgos y oportunidades derivados de las conclusiones principales."
+    );
+  }
+
+  if (metadata.fileName) {
+    suggestions.push(
+      "Guarda el PDF original junto al resumen para mantener la trazabilidad."
+    );
+  }
+
+  suggestions.push("Define los próximos pasos y responsables antes de 48 horas.");
+
+  return dedupe(suggestions).slice(0, 4);
+}
+
+function renderList(container, items) {
+  if (!container) return;
+  container.innerHTML = "";
+  items.filter(Boolean).forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    container.appendChild(li);
+  });
+}
+
+function toggleSection(section, hasItems) {
+  if (!section) return;
+  section.hidden = !hasItems;
+}
+
+function extractKeywords(text) {
+  const frequencies = computeWordFrequencies(text);
+  const sorted = [...frequencies.entries()].sort((a, b) => b[1] - a[1]);
+  return sorted
+    .slice(0, 6)
+    .map(([word]) => capitalizeFirst(word))
+    .filter(Boolean);
+}
+
+function simplifySentence(sentence) {
+  return sentence
+    .replace(/^[\-•\d\.\s]+/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeWhitespace(text) {
+  return (text || "").replace(/\s+/g, " ").trim();
+}
+
+function getStopwords() {
+  return new Set([
+    "el",
+    "la",
+    "los",
+    "las",
+    "de",
+    "del",
+    "y",
+    "a",
+    "un",
+    "una",
+    "es",
+    "en",
+    "que",
+    "se",
+    "para",
+    "por",
+    "con",
+    "no",
+    "una",
+    "su",
+    "al",
+    "lo",
+    "como",
+    "más",
+    "sus",
+    "ya",
+    "muy",
+    "también",
+    "sobre",
+    "entre",
+    "cuando",
+    "donde",
+    "desde",
+    "porque",
+    "este",
+    "esta",
+    "estos",
+    "estas",
+    "ser",
+    "hay",
+    "fue",
+    "son",
+    "puede",
+    "pueden",
+    "si",
+    "sí",
+    "pero",
+    "o",
+    "u",
+    "al",
+    "cual",
+    "sobre",
+    "qué",
+    "tanto",
+    "cada",
+    "dos",
+    "tres",
+    "tras",
+    "solo",
+    "solo",
+    "todo",
+    "toda",
+    "todas",
+    "todos",
+    "debido",
+    "ante",
+    "hacia",
+    "esto",
+    "esa",
+    "ese",
+    "esas",
+    "esos",
+    "mis",
+    "tus",
+    "sus",
+    "nuestros",
+    "nuestras",
+    "vos",
+    "ustedes",
+  ]);
 }
