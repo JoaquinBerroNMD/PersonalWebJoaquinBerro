@@ -396,6 +396,123 @@
         </section>
 
         <section
+          id="prompt-optimizer"
+          class="panel panel--prompt"
+          aria-labelledby="prompt-optimizer-title"
+        >
+          <div class="panel__header">
+            <span class="panel__eyebrow">Herramienta</span>
+            <h3 class="panel__title" id="prompt-optimizer-title">
+              Optimiza tus prompts con IA
+            </h3>
+          </div>
+          <div class="prompt-optimizer">
+            <form
+              class="prompt-optimizer__form"
+              data-prompt-optimizer-form
+              novalidate
+            >
+              <p class="prompt-optimizer__description">
+                Pega tu prompt actual y la herramienta analizará claridad, contexto y formato.
+                Recibirás recomendaciones accionables y un prompt reescrito listo para usar.
+              </p>
+              <div class="prompt-optimizer__field">
+                <label for="prompt-original">Prompt actual</label>
+                <textarea
+                  id="prompt-original"
+                  name="prompt-original"
+                  rows="6"
+                  placeholder="Describe aquí tu prompt original..."
+                  data-prompt-original
+                  required
+                ></textarea>
+              </div>
+              <div class="prompt-optimizer__field-group">
+                <div class="prompt-optimizer__field">
+                  <label for="prompt-goal">Objetivo principal</label>
+                  <input
+                    id="prompt-goal"
+                    name="prompt-goal"
+                    type="text"
+                    placeholder="Ej. crear una campaña de email para leads B2B"
+                    data-prompt-goal
+                  />
+                </div>
+                <div class="prompt-optimizer__field">
+                  <label for="prompt-audience">Audiencia</label>
+                  <input
+                    id="prompt-audience"
+                    name="prompt-audience"
+                    type="text"
+                    placeholder="Ej. directores de marketing en fintech"
+                    data-prompt-audience
+                  />
+                </div>
+              </div>
+              <div class="prompt-optimizer__field">
+                <label for="prompt-tone">Tono / formato deseado</label>
+                <input
+                  id="prompt-tone"
+                  name="prompt-tone"
+                  type="text"
+                  placeholder="Ej. tono persuasivo, entregar en tabla de 3 columnas"
+                  data-prompt-tone
+                />
+              </div>
+              <div class="prompt-optimizer__actions">
+                <button class="btn btn--primary" type="submit">
+                  Optimizar prompt
+                </button>
+                <p class="prompt-optimizer__feedback" data-prompt-feedback aria-live="polite"></p>
+              </div>
+            </form>
+
+            <aside
+              class="prompt-optimizer__results"
+              data-prompt-optimizer-results
+              hidden
+              aria-live="polite"
+            >
+              <div class="prompt-optimizer__score">
+                <span class="prompt-optimizer__score-label">Claridad estimada</span>
+                <span class="prompt-optimizer__score-value" data-prompt-score>0</span>
+              </div>
+              <p class="prompt-optimizer__summary" data-prompt-summary></p>
+
+              <div class="prompt-optimizer__list prompt-optimizer__list--strengths" hidden>
+                <h4>Fortalezas detectadas</h4>
+                <ul data-prompt-strengths></ul>
+              </div>
+              <div class="prompt-optimizer__list prompt-optimizer__list--gaps" hidden>
+                <h4>Oportunidades de mejora</h4>
+                <ul data-prompt-gaps></ul>
+              </div>
+
+              <div class="prompt-optimizer__list prompt-optimizer__list--suggestions">
+                <h4>Siguientes acciones sugeridas</h4>
+                <ul data-prompt-suggestions></ul>
+              </div>
+
+              <div class="prompt-optimizer__output">
+                <label for="optimized-prompt">Prompt optimizado</label>
+                <textarea
+                  id="optimized-prompt"
+                  rows="10"
+                  data-optimized-prompt
+                  readonly
+                ></textarea>
+                <div class="prompt-optimizer__copy">
+                  <button class="btn btn--ghost" type="button" data-prompt-copy>
+                    Copiar prompt optimizado
+                  </button>
+                  <span class="prompt-optimizer__copy-feedback" data-prompt-copy-feedback></span>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section
           id="contact"
           class="panel panel--contact"
           aria-labelledby="contact-title" data-reveal
@@ -488,6 +605,7 @@
         <button data-scroll-to="experience">Experiencia</button>
         <button data-scroll-to="projects">Proyectos</button>
         <button data-scroll-to="insights">Ideas</button>
+        <button data-scroll-to="prompt-optimizer">Optimizador IA</button>
         <button data-scroll-to="contact">Contacto</button>
       </nav>
     </div>
