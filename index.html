@@ -406,7 +406,16 @@
               ¿Hablamos sobre tu próximo proyecto?
             </h3>
           </div>
-          <form class="contact-form" action="#" method="post">
+          <form
+            class="contact-form"
+            id="contact-form"
+            action="#"
+            method="post"
+            data-emailjs-service="service_dskmwot"
+            data-emailjs-template="template_g5sb8ke"
+            data-emailjs-public-key="UdfO-8kQlTVoS8y33"
+            novalidate
+          >
             <div class="contact-form__field">
               <label for="name">Nombre</label>
               <input id="name" name="name" type="text" placeholder="Tu nombre" required />
@@ -452,6 +461,7 @@
             <button class="btn btn--primary contact-form__submit" type="submit">
               Enviar propuesta
             </button>
+            <p class="contact-form__status" data-form-status aria-live="polite"></p>
           </form>
         </section>
 
@@ -475,6 +485,10 @@
       </nav>
     </div>
 
+    <script
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+      defer
+    ></script>
     <script src="scripts/main.js" defer></script>
   </body>
 </html>

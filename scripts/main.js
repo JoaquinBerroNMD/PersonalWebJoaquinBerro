@@ -3,15 +3,19 @@ const SELECTORS = {
   yearTarget: "[data-year]",
   scrollTrigger: "[data-scroll-to]",
   carousel: "[data-carousel]",
+  contactForm: "#contact-form",
+  formStatus: "[data-form-status]",
 };
 
 const SCROLL_OFFSET = 80;
+const EMAILJS_STATUS_RESET_DELAY = 7000;
 
 document.addEventListener("DOMContentLoaded", () => {
   setCurrentYear();
   bindSmoothScroll();
   initFloatingNav();
   initTestimonialsCarousel();
+  initContactFormEmail();
 });
 
 function setCurrentYear() {
@@ -149,5 +153,77 @@ function initTestimonialsCarousel() {
     } else {
       resetAutoplay();
     }
+  });
+}
+
+function initContactFormEmail() {
+  const form = document.querySelector(SELECTORS.contactForm);
+  if (!form || typeof window.emailjs === "undefined") return;
+
+  const serviceId = (form.dataset.emailjsService || "").trim();
+  const templateId = (form.dataset.emailjsTemplate || "").trim();
+  const publicKey =
+    (form.dataset.emailjsPublicKey || window.EMAILJS_PUBLIC_KEY || "").trim();
+
+  const hasConfig =
+    serviceId && templateId && publicKey && !serviceId.includes("xxxxx");
+
+  if (!hasConfig) {
+    return;
+  }
+
+  window.emailjs.init(publicKey);
+
+  const statusEl = form.querySelector(SELECTORS.formStatus);
+  const submitButton = form.querySelector("button[type='submit']");
+
+  const setStatus = (message, state) => {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    if (state) {
+      statusEl.dataset.state = state;
+    } else {
+      delete statusEl.dataset.state;
+    }
+  };
+
+  const resetStatusLater = () => {
+    if (!statusEl) return;
+    window.setTimeout(() => {
+      statusEl.textContent = "";
+      delete statusEl.dataset.state;
+    }, EMAILJS_STATUS_RESET_DELAY);
+  };
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.dataset.loading = "true";
+    }
+
+    setStatus("Enviando propuesta...", "pending");
+
+    window.emailjs
+      .sendForm(serviceId, templateId, form)
+      .then(() => {
+        setStatus("¡Gracias! Te responderé a la brevedad.", "success");
+        form.reset();
+        resetStatusLater();
+      })
+      .catch(() => {
+        setStatus(
+          "No se pudo enviar. Intenta de nuevo o escríbeme a hola@joaquin.dev.",
+          "error"
+        );
+        resetStatusLater();
+      })
+      .finally(() => {
+        if (submitButton) {
+          submitButton.disabled = false;
+          delete submitButton.dataset.loading;
+        }
+      });
   });
 }

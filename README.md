@@ -18,8 +18,25 @@ Plantilla premium de portfolio personal, con foco en estética moderna y conteni
 
 > Tip: puedes convertir este template en un proyecto con build tooling (React, Astro, etc.) más adelante; la estructura semántica ya está pensada para escalar.
 
+## Envío de mails con EmailJS
+
+El formulario usa EmailJS para enviar mensajes sin backend y ya está configurado con:
+
+- `service_id`: `service_dskmwot`
+- `template_id`: `template_g5sb8ke`
+- `public_key`: `UdfO-8kQlTVoS8y33`
+
+Si deseas cambiarlos o regenerarlos:
+
+1. Crea una cuenta gratuita en [EmailJS](https://www.emailjs.com/), agrega un servicio (por ejemplo Gmail) y un template.
+2. Copia los valores `service_id`, `template_id` y `public_key`.
+3. En `index.html`, reemplaza los atributos `data-emailjs-service`, `data-emailjs-template` y `data-emailjs-public-key` con tus nuevos valores.
+4. Ajusta el template en EmailJS para mapear los campos `name`, `email`, `company`, `budget` y `message`.
+
+> Si quitas o invalidas estas claves, el formulario seguirá siendo visible pero no enviará correos.
+
 ## Próximos pasos sugeridos
 
-- Integrar un backend ligero o servicio de terceros (Formspree, Getform) para enviar el formulario de contacto.
+- Configurar EmailJS con tus claves reales (o conectar el formulario a otro backend) y probar el envío.
 - Añadir métricas reales y testimonios verificados para reforzar credibilidad.
 - Optimizar imágenes (WebP/AVIF) y generar favicon/og-images personalizados.

@@ -839,6 +839,32 @@ a {
   justify-self: flex-start;
 }
 
+.contact-form__submit[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contact-form__status {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  min-height: 1.2em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.contact-form__status[data-state="success"] {
+  color: var(--color-highlight);
+}
+
+.contact-form__status[data-state="error"] {
+  color: #f25f4c;
+}
+
+.contact-form__status[data-state="pending"] {
+  color: rgba(249, 249, 251, 0.75);
+}
+
 .footer {
   margin-top: 32px;
   padding: 28px 32px 40px;
