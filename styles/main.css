@@ -826,6 +826,11 @@ a {
   transition: border-color var(--transition), transform var(--transition);
 }
 
+.contact-form select option {
+  background-color: rgba(9, 9, 15, 0.92);
+  color: var(--color-text);
+}
+
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
