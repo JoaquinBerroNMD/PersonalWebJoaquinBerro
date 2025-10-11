@@ -5,7 +5,10 @@ const SELECTORS = {
   carousel: "[data-carousel]",
   contactForm: "#contact-form",
   formStatus: "[data-form-status]",
+  revealTargets: "[data-reveal]",
 };
+
+document.documentElement.classList.add("js");
 
 const SCROLL_OFFSET = 80;
 const EMAILJS_STATUS_RESET_DELAY = 7000;
@@ -15,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindSmoothScroll();
   initFloatingNav();
   initTestimonialsCarousel();
+  initScrollReveal();
   initContactFormEmail();
 });
 
@@ -156,6 +160,57 @@ function initTestimonialsCarousel() {
   });
 }
 
+function initScrollReveal() {
+  const elements = document.querySelectorAll(SELECTORS.revealTargets);
+  if (!elements.length) return;
+
+  const prefersReducedMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) {
+    elements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const target = entry.target;
+
+        if (entry.isIntersecting) {
+          window.requestAnimationFrame(() => {
+            target.classList.add("is-visible");
+          });
+
+          if (target.dataset.revealOnce === "true") {
+            observer.unobserve(target);
+          }
+          return;
+        }
+
+        if (target.dataset.revealRepeat !== "false") {
+          window.requestAnimationFrame(() => {
+            target.classList.remove("is-visible");
+          });
+        }
+      });
+    },
+    {
+      threshold: 0.18,
+      rootMargin: "0px 0px -12% 0px",
+    }
+  );
+
+  elements.forEach((element) => {
+    const delay = Number(element.dataset.revealDelay);
+    if (!Number.isNaN(delay) && delay >= 0) {
+      element.style.setProperty("--reveal-delay", `${delay}ms`);
+    }
+    observer.observe(element);
+  });
+}
+
 function initContactFormEmail() {
   const form = document.querySelector(SELECTORS.contactForm);
   if (!form || typeof window.emailjs === "undefined") return;
@@ -255,3 +310,4 @@ function initContactFormEmail() {
       });
   });
 }
+
