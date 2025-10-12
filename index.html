@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -63,6 +63,17 @@
       </aside>
 
       <main class="content">
+        <div class="theme-toggle" data-reveal>
+          <button
+            class="theme-toggle__button"
+            type="button"
+            data-theme-toggle
+            aria-pressed="false"
+          >
+            <span class="theme-toggle__icon" data-theme-toggle-icon aria-hidden="true">☀️</span>
+            <span data-theme-toggle-label>Modo claro</span>
+          </button>
+        </div>
         <header class="hero" aria-label="Introducción profesional" data-reveal>
           <div class="hero__eyebrow">Desarrollo + Diseño</div>
           <h2 class="hero__headline">
@@ -403,21 +414,7 @@
             </h3>
           </div>
           <div class="ai-tools" data-ai-tools>
-            <div class="ai-tools__switcher">
-              <label class="ai-tools__switcher-label" for="ai-tool-selector">
-                Elige la herramienta
-              </label>
-              <select
-                id="ai-tool-selector"
-                class="ai-tools__selector"
-                data-ai-tool-selector
-              >
-                <option value="optimizer">Prompt Optimizer</option>
-                <option value="summarizer">Resumen Inteligente</option>
-              </select>
-            </div>
-
-            <div class="ai-tools__panel is-active" data-ai-tool="optimizer">
+            <div class="ai-tools__panel is-active">
               <div class="prompt-optimizer">
                 <form
                   class="prompt-optimizer__form"
@@ -519,105 +516,6 @@
                       </button>
                       <span class="prompt-optimizer__copy-feedback" data-prompt-copy-feedback></span>
                     </div>
-                  </div>
-                </aside>
-              </div>
-            </div>
-
-            <div class="ai-tools__panel" data-ai-tool="summarizer" hidden>
-              <div class="text-summarizer">
-                <form class="text-summarizer__form" data-summarizer-form novalidate>
-                  <p class="text-summarizer__description">
-                    Resume artículos extensos, investigaciones o documentos técnicos. Pega el texto o sube un PDF y obtendrás los puntos clave listos para compartir.
-                  </p>
-                  <div class="text-summarizer__field">
-                    <label for="summarizer-text">Texto a resumir</label>
-                    <textarea
-                      id="summarizer-text"
-                      name="summarizer-text"
-                      rows="8"
-                      placeholder="Pega aquí el contenido que quieres resumir..."
-                      data-summarizer-input
-                    ></textarea>
-                  </div>
-                  <div class="text-summarizer__field text-summarizer__field--file">
-                    <label for="summarizer-file">O adjunta un PDF</label>
-                    <input
-                      id="summarizer-file"
-                      name="summarizer-file"
-                      type="file"
-                      accept="application/pdf"
-                      data-summarizer-file
-                    />
-                    <p class="text-summarizer__hint">
-                      Máximo 10 MB. El contenido se procesa localmente en tu navegador.
-                    </p>
-                  </div>
-                  <div class="text-summarizer__field-group">
-                    <div class="text-summarizer__field">
-                      <label for="summarizer-length">Extensión del resumen</label>
-                      <select
-                        id="summarizer-length"
-                        name="summarizer-length"
-                        data-summarizer-length
-                      >
-                        <option value="short">Conciso (3 frases)</option>
-                        <option value="medium" selected>Equilibrado (5 frases)</option>
-                        <option value="long">Detallado (8 frases)</option>
-                      </select>
-                    </div>
-                    <div class="text-summarizer__field">
-                      <label for="summarizer-tone">Enfoque</label>
-                      <select id="summarizer-tone" name="summarizer-tone" data-summarizer-tone>
-                        <option value="analytical" selected>Analítico</option>
-                        <option value="executive">Ejecutivo</option>
-                        <option value="bullet">Lista de bullets</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="text-summarizer__actions">
-                    <button class="btn btn--primary" type="submit">
-                      Generar resumen
-                    </button>
-                    <p class="text-summarizer__feedback" data-summarizer-feedback aria-live="polite"></p>
-                  </div>
-                </form>
-
-                <aside
-                  class="text-summarizer__results"
-                  data-summarizer-results
-                  hidden
-                  aria-live="polite"
-                >
-                  <div class="text-summarizer__meta">
-                    <div class="text-summarizer__meta-item">
-                      <span>Fuente procesada</span>
-                      <strong data-summarizer-source>Texto pegado</strong>
-                    </div>
-                    <div class="text-summarizer__meta-item">
-                      <span>Extensión analizada</span>
-                      <strong data-summarizer-word-count>0 palabras</strong>
-                    </div>
-                    <div class="text-summarizer__meta-item">
-                      <span>Tiempo estimado de lectura</span>
-                      <strong data-summarizer-reading-time>0 min</strong>
-                    </div>
-                  </div>
-                  <p class="text-summarizer__summary" data-summarizer-output></p>
-
-                  <div class="text-summarizer__highlights" hidden>
-                    <h4>Puntos clave</h4>
-                    <ul data-summarizer-keypoints></ul>
-                  </div>
-
-                  <div class="text-summarizer__keywords" hidden>
-                    <h4>Temas recurrentes</h4>
-                    <ul data-summarizer-keywords></ul>
-                  </div>
-
-                  <div class="text-summarizer__next" hidden>
-                    <h4>Siguientes pasos recomendados</h4>
-                    <ul data-summarizer-suggestions></ul>
                   </div>
                 </aside>
               </div>
@@ -725,10 +623,6 @@
 
     <script
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"
       defer
     ></script>
     <script src="scripts/main.js" defer></script>
