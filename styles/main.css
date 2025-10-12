@@ -1506,7 +1506,7 @@ a {
 
 @media (max-width: 520px) {
   .page-grid {
-    padding: 18px;
+    padding: 18px 16px 28px;
   }
 
   .hero {
@@ -1543,6 +1543,18 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .page-grid::after {
+    background-image: none;
+  }
+
+  .hero {
+    text-align: center;
+  }
+
+  .hero__cta-group {
+    align-items: stretch;
+  }
+
   .panel {
     padding: 26px 22px;
   }
@@ -1557,7 +1569,36 @@ a {
 
   .sidebar__branding {
     flex-direction: column;
+    align-items: center;
     text-align: center;
+  }
+
+  .sidebar__contact {
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .sidebar__contact li {
+    width: 100%;
+  }
+
+  .sidebar__contact-value,
+  .sidebar__contact-link {
+    display: inline-block;
+  }
+
+  .status-dot {
+    justify-content: center;
+    padding-left: 0;
+    gap: 8px;
+  }
+
+  .status-dot::before {
+    display: inline-block;
+    position: static;
+    transform: none;
+    margin-right: 8px;
   }
 
   .sidebar__social {
