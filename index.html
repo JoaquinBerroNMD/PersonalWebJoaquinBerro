@@ -4,10 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Portfolio | Joaquin Berro</title>
-    <meta
-      name="description"
-      content="Portfolio profesional de Joaquin Berro: desarrollador full-stack y diseñador digital enfocado en experiencias elegantes y de alto rendimiento."
-    />
+    <meta name="description" content="Portfolio profesional de Joaquin Berro, lead product engineer y estratega UX especializado en experiencias digitales de alto rendimiento." />
+    <meta name="keywords" content="Joaquin Berro, product engineer, UX strategist, design systems, desarrollo web, consultor UX" />
+    <meta name="author" content="Joaquin Berro" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#121222" />
+    <link rel="canonical" href="https://joaquinberro.com/" />
+    <link rel="icon" href="assets/images/profile-placeholder.svg" type="image/svg+xml" />
+    <meta property="og:site_name" content="Portfolio de Joaquin Berro" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://joaquinberro.com/" />
+    <meta property="og:title" content="Joaquin Berro · Lead Product Engineer & UX Strategist" />
+    <meta property="og:description" content="Conecta con Joaquin Berro, especialista en producto y UX que diseña experiencias digitales medibles para startups y marcas globales." />
+    <meta property="og:image" content="https://joaquinberro.com/assets/images/portfolio-social-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Retrato profesional y eslogan de Joaquin Berro" />
+    <meta property="og:locale" content="es_UY" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Joaquin Berro · Lead Product Engineer & UX Strategist" />
+    <meta name="twitter:description" content="Conecta con Joaquin Berro, especialista en producto y UX que diseña experiencias digitales medibles para startups y marcas globales." />
+    <meta name="twitter:image" content="https://joaquinberro.com/assets/images/portfolio-social-card.png" />
+    <meta name="twitter:image:alt" content="Retrato profesional y eslogan de Joaquin Berro" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,6 +34,52 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/main.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://joaquinberro.com/#website",
+            "url": "https://joaquinberro.com/",
+            "name": "Portfolio de Joaquin Berro",
+            "description": "Portfolio profesional de Joaquin Berro, lead product engineer y estratega UX especializado en experiencias digitales de alto rendimiento.",
+            "inLanguage": "es",
+            "publisher": {
+              "@id": "https://joaquinberro.com/#person"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://joaquinberro.com/#person",
+            "name": "Joaquin Berro",
+            "jobTitle": [
+              "Lead Product Engineer",
+              "UX Strategist"
+            ],
+            "url": "https://joaquinberro.com/",
+            "image": "https://joaquinberro.com/assets/images/portfolio-social-card.png",
+            "email": "mailto:berrojoaco@gmail.com",
+            "sameAs": [
+              "https://www.linkedin.com/in/joaquin-berro-b5a95214b",
+              "https://github.com"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Montevideo",
+              "addressCountry": "UY"
+            },
+            "knowsAbout": [
+              "Design Systems",
+              "React",
+              "Next.js",
+              "Product Discovery",
+              "Experiencia de usuario"
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div class="page-grid">
@@ -26,7 +91,7 @@
             class="sidebar__avatar"
           />
           <div>
-            <h1 class="sidebar__name">Joaquin Berro</h1>
+            <p class="sidebar__name" role="heading" aria-level="2">Joaquin Berro</p>
             <p class="sidebar__role">Full-Stack Engineer · Diseñador UI</p>
           </div>
         </div>
@@ -76,21 +141,21 @@
         </div>
         <header class="hero" aria-label="Introducción profesional" data-reveal>
           <div class="hero__eyebrow">Desarrollo + Diseño</div>
-          <h2 class="hero__headline">
+          <h1 class="hero__headline">
             Creo experiencias digitales que combinan rendimiento, estética y
             propósito.
-          </h2>
+          </h1>
           <p class="hero__lede">
             Más de 3 años liderando proyectos web para startups y marcas globales,
             mezclando estrategia, código moderno y sensibilidad visual.
           </p>
           <div class="hero__cta-group">
-            <button class="btn btn--primary" data-scroll-to="projects">
+            <a class="btn btn--primary" href="#projects" data-scroll-to="projects">
               Ver proyectos destacados
-            </button>
-            <button class="btn btn--ghost" data-scroll-to="about">
+            </a>
+            <a class="btn btn--ghost" href="#about" data-scroll-to="about">
               Conocer mi enfoque
-            </button>
+            </a>
           </div>
           <div class="hero__metrics">
             <div class="metric">
@@ -612,12 +677,12 @@
 
     <div class="floating-nav" data-floating-nav>
       <nav aria-label="Secciones principales">
-        <button data-scroll-to="about">Sobre mí</button>
-        <button data-scroll-to="experience">Experiencia</button>
-        <button data-scroll-to="projects">Proyectos</button>
-        <button data-scroll-to="insights">Ideas</button>
-        <button data-scroll-to="ai-tools">Herramientas IA</button>
-        <button data-scroll-to="contact">Contacto</button>
+        <a href="#about" data-scroll-to="about">Sobre mí</a>
+        <a href="#experience" data-scroll-to="experience">Experiencia</a>
+        <a href="#projects" data-scroll-to="projects">Proyectos</a>
+        <a href="#insights" data-scroll-to="insights">Ideas</a>
+        <a href="#ai-tools" data-scroll-to="ai-tools">Herramientas IA</a>
+        <a href="#contact" data-scroll-to="contact">Contacto</a>
       </nav>
     </div>
 

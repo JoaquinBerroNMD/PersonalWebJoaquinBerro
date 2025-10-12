@@ -143,9 +143,9 @@ function bindSmoothScroll() {
   const triggers = document.querySelectorAll(SELECTORS.scrollTrigger);
   if (!triggers.length) return;
 
-  triggers.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const sectionId = button.getAttribute("data-scroll-to");
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      const sectionId = trigger.getAttribute("data-scroll-to");
       const section = document.getElementById(sectionId);
 
       if (!section) return;
@@ -164,12 +164,12 @@ function initFloatingNav() {
   const nav = document.querySelector(SELECTORS.floatingNav);
   if (!nav) return;
 
-  const buttons = Array.from(
+  const navTriggers = Array.from(
     nav.querySelectorAll(`${SELECTORS.scrollTrigger}`)
   );
 
-  const sections = buttons
-    .map((button) => document.getElementById(button.dataset.scrollTo))
+  const sections = navTriggers
+    .map((trigger) => document.getElementById(trigger.dataset.scrollTo))
     .filter(Boolean);
 
   const toggleNavVisibility = () => {
@@ -184,12 +184,14 @@ function initFloatingNav() {
     (entries) => {
       entries.forEach((entry) => {
         const targetId = entry.target.getAttribute("id");
-        const button = buttons.find((btn) => btn.dataset.scrollTo === targetId);
-        if (!button) return;
+        const activeTrigger = navTriggers.find(
+          (btn) => btn.dataset.scrollTo === targetId
+        );
+        if (!activeTrigger) return;
 
         if (entry.isIntersecting) {
-          buttons.forEach((btn) => btn.classList.remove("is-active"));
-          button.classList.add("is-active");
+          navTriggers.forEach((btn) => btn.classList.remove("is-active"));
+          activeTrigger.classList.add("is-active");
         }
       });
     },
