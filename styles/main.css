@@ -1612,13 +1612,51 @@ a {
   }
 
 :root[data-theme="light"] .sidebar {
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.95), rgba(236, 240, 255, 0.92));
-  box-shadow: 0 28px 48px rgba(17, 25, 55, 0.16);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(229, 233, 255, 0.94));
+  border: 1px solid rgba(17, 19, 33, 0.06);
+  box-shadow: 0 32px 46px rgba(17, 25, 55, 0.14);
 }
 
 :root[data-theme="light"] .sidebar__avatar {
   border-color: rgba(127, 90, 240, 0.35);
   box-shadow: 0 10px 20px rgba(18, 28, 62, 0.18);
+}
+
+:root[data-theme="light"] .sidebar__name {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .sidebar__role {
+  color: rgba(17, 19, 33, 0.62);
+  opacity: 1;
+}
+
+:root[data-theme="light"] .sidebar__contact-label {
+  color: rgba(17, 19, 33, 0.45);
+  opacity: 1;
+}
+
+:root[data-theme="light"] .sidebar__contact-value,
+:root[data-theme="light"] .sidebar__contact-link {
+  color: var(--color-text);
+}
+
+:root[data-theme="light"] .sidebar__contact-link:hover::after {
+  background: rgba(127, 90, 240, 0.8);
+}
+
+:root[data-theme="light"] .status-dot::before {
+  box-shadow: 0 0 0 6px rgba(44, 182, 125, 0.18);
+}
+
+:root[data-theme="light"] .sidebar__social a {
+  background: rgba(255, 255, 255, 0.6);
+  color: rgba(17, 19, 33, 0.7);
+}
+
+:root[data-theme="light"] .sidebar__social a:hover {
+  background: rgba(127, 90, 240, 0.12);
+  color: var(--color-text);
 }
 
 :root[data-theme="light"] .sidebar__cta {
@@ -1716,4 +1754,6 @@ a {
   background: rgba(127, 90, 240, 0.18);
   border-color: rgba(127, 90, 240, 0.28);
   color: #2c1f6d;
+}
+
 }
