@@ -104,6 +104,10 @@ a {
   position: relative;
 }
 
+.page-grid > * {
+  min-width: 0;
+}
+
 .page-grid::before {
   content: "";
   position: fixed;
